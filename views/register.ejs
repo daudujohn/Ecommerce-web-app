@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<%- include('includes/head'); %>
+ <body>
+<%- include('includes/nav'); %>
+<div class="container mt-5">
+    <h1>Registration</h1>
+    <% if (message) { %>
+        <div class="alert alert-success" role="alert">
+            <h2><%= message %></h2>
+        </div>
+      <% } %>
+    <form method="post" action="/register">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name<sup class="text-danger">*</sup></label>
+            <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address<sup class="text-danger">*</sup></label>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I would like to recieve email promotions and offers</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<%- include('includes/footer'); %>
+ </body>
+</html>
