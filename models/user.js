@@ -9,17 +9,21 @@ const userSchema = new mongoose.Schema({
         type: String, 
         minLength: 2,
         maxLength: 64,
-        required: true
+        required: true,
+        trim: true
     }, 
     email: {
         type: String, 
         minLength: 2,
         maxLength: 128,
         required: true, 
-        index: true
+        index: true, 
+        lowercase: true, 
+        trim: true
     }, 
     password: {
         type: String, 
+        minLength: 7, 
         required: true, 
     }, 
     isDeleted: {
@@ -43,14 +47,15 @@ const User = mongoose.model('User', userSchema)
 
 const validateUser = function (user){
     const schema = Joi.object({
-        name: Joi.string().min(2).max(64).required(), 
-        email: Joi.string().min(2).max(128).required(), 
+        name: Joi.string().trim().min(2).max(64).required(), 
+        email: Joi.string().trim().lowercase().email().min(2).max(128).required(), 
         password: Joi.string().required(), 
+        repeat_password: Joi.string().required(), 
         isDeleted: Joi.boolean(),
         isActive: Joi.boolean()
     })
 
-    return schema.validate(user)
+    return schema.validate(user, {abortEarly: false})
 }
 
 exports.User = User;
