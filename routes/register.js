@@ -3,12 +3,13 @@ const router = express.Router();
 const UserController = require('../controllers/register');
 const {validateUser} = require('../models/user');
 const {joiFormatter, mongooseFormatter} = require('../utils/validationFormatter');
+const guest = require('../middlewares/guest');
 
-router.get('/', (req, res) => {
+router.get('/', guest, (req, res) => {
     res.render('register', {message: {}, errors: {}, formData: {}})
 })
 
-router.post('/', async (req, res) => {
+router.post('/', guest, async (req, res) => {
     try{
         const {error} = validateUser(req.body)
         if (error) return res.render('register', {
