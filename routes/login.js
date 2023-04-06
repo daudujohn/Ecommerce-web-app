@@ -4,7 +4,7 @@ const passport = require('passport');
 const guest = require('../middlewares/guest');
 
 router.get('/', guest, (req, res) => {
-    res.render('login', {message: {}, errors: {}, formData: {}})
+    res.render('login')
 })
 
 router.post('/', guest, passport.authenticate('local', {
@@ -16,9 +16,7 @@ router.post('/', guest, passport.authenticate('local', {
         message: {
             type: 'success', 
             body: 'Login Successful'
-        }, 
-        errors: {}, 
-        formData: {}
+        }
     })
 })
 

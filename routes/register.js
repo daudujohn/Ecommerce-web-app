@@ -6,7 +6,7 @@ const {joiFormatter, mongooseFormatter} = require('../utils/validationFormatter'
 const guest = require('../middlewares/guest');
 
 router.get('/', guest, (req, res) => {
-    res.render('register', {message: {}, errors: {}, formData: {}})
+    res.render('register')
 })
 
 router.post('/', guest, async (req, res) => {
@@ -17,7 +17,7 @@ router.post('/', guest, async (req, res) => {
                 type: 'error', 
                 body: 'Validation Error'
             },  
-            errors: joiFormatter(error) ?? {}, 
+            errors: joiFormatter(error), 
             formData: req.body
         })
 
@@ -27,7 +27,6 @@ router.post('/', guest, async (req, res) => {
                 type: 'success', 
                 body: 'Registration Successful'
             },  
-            errors: {}, 
             formData: req.body
         })
     }
