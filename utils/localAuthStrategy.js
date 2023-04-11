@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const { User, confirmPassword } = require('../models/user');
+const { User } = require('../models/user');
 
 passport.use(new LocalStrategy({ 'usernameField': 'email' }, 
     async (email, password, done) => {
@@ -14,7 +14,6 @@ passport.use(new LocalStrategy({ 'usernameField': 'email' },
         done(e)
     }
 }))
-// if (!user.verifyPassword(password)) return done(null, false)
 
 passport.serializeUser(function(user, done) {
     process.nextTick(() => {
