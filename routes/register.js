@@ -23,7 +23,6 @@ router.post('/', [guest, flash], async (req, res) => {
                     errors: joiFormatter(error), 
                     formData: req.body
                 }
-
             return res.redirect('/register')
         }
 
@@ -36,16 +35,18 @@ router.post('/', [guest, flash], async (req, res) => {
             formData: req.body
         }
         return res.redirect('/register')
+
     }
     catch(e){
-        res.status(500).render('register', {
+        req.session['flashData'] = {
             message: {
                 type: 'error', 
                 body: 'Validation Error'
             },  
             errors: mongooseFormatter(e), 
             formData: req.body
-        })
+        }
+        res.status(500).redirect('/register')
     }
 })
 
