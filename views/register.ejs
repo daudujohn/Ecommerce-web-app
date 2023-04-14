@@ -33,17 +33,16 @@
             <input
                 type="email"
                 name="email"
-                class="form-control <%= errors.name ? 'is-invalid' : '' %>"
-                id="exampleInputEmail1"
+                class="form-control <%= errors.email ? 'is-invalid' : '' %>"
+                id="email"
                 aria-describedby="emailHelp"
                 value="<%= formData.email %>"
             >
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                <% if (errors.email) { %>
-                    <%= errors.email ? errors.email : '' %>
-                  <% } %>
-              </div>
-        </div>
+            <% if (errors.email) { %>
+                <div class="invalid-feedback">
+                    <%= errors.email[0] %>
+                </div>
+            <% } %>
 
         <div class="mb-3">
             <label for="password" class="form-label">Password<sup class="text-danger">*</sup></label>
