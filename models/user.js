@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true, 
         index: true, 
         lowercase: true, 
-        trim: true
+        trim: true, 
     }, 
     password: {
         type: String, 
@@ -35,6 +35,11 @@ const userSchema = new mongoose.Schema({
         default: true
     }
 }, {timestamps: true})
+
+userSchema.path('email').validate(async (email) => {
+    const existingEmail = await mongoose.model('User').findOne({ email })
+    return !existingEmail
+}, 'Email already exists')
 
 userSchema.pre('save', async function(next){
     if (!this.isModified('password')) return next()
