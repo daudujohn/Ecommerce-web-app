@@ -26,6 +26,7 @@ app.use(session({
   cookie: { secure: false }, 
   store: MongoStore.create({ mongoUrl: config.get('db.conn') })
 }))
+app.use(express.static('public'))
 app.use(passport.initialize());
 app.use(passport.session());
 views_data = {message: {}, errors: {}, formData: {}}
@@ -35,6 +36,14 @@ app.use('/', home)
 app.use('/register', register)
 app.use('/login', login)
 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).render('500')
+})
+
+app.use((req, res, next) => {
+  res.status(404).render('404')
+})
 
 
 const PORT = process.env.PORT || 3000
