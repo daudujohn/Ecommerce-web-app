@@ -15,7 +15,7 @@ const login = require('./routes/login');
 
 const app = express() 
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'pug')
 app.use(logger('dev'))
 app.use(bodyParser.urlencoded({ extended: false }))
 // app.set('trust proxy', 1)
