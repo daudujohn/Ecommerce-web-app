@@ -5,7 +5,7 @@ const guest = require('../middlewares/guest');
 const flash = require('../middlewares/flash');
 
 router.get('/', [guest, flash], (req, res) => {
-    res.render('login')
+    res.render('auth/login')
 })
 
 router.post('/', [guest, flash], (req, res, next) => {
@@ -17,6 +17,7 @@ router.post('/', [guest, flash], (req, res, next) => {
                 type: 'error', 
                 body: 'Something went wrong'
             },
+            formData: req.body,
             errors: {}
         }
         return res.redirect('/login')
@@ -27,6 +28,7 @@ router.post('/', [guest, flash], (req, res, next) => {
                 type: 'error', 
                 body: info.loginError
             },  
+            formData: req.body
         }
         return res.redirect('/login')
     }

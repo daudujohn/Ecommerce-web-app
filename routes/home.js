@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 
 router.get('/', (req, res) => {
   if (req.isAuthenticated()) return res.render('dashboard')
-  return res.render('index', {name: null})
+  return res.render('index')
 })
 
 router.post('/logout', auth, function(req, res, next){
