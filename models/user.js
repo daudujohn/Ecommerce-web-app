@@ -2,6 +2,7 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const toTitleCase = require('../utils/toTitleCase');
 
 
 const userSchema = new mongoose.Schema({
@@ -44,6 +45,7 @@ userSchema.path('email').validate(async (email) => {
 userSchema.pre('save', async function(next){
     if (!this.isModified('password')) return next()
     this.password = await bcrypt.hash(this.password, 10)
+    this.name = toTitleCase(this.name)
     next()
 })
 
