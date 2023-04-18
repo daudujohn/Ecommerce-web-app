@@ -29,6 +29,18 @@ app.use(session({
 app.use(express.static('public'))
 app.use(passport.initialize());
 app.use(passport.session());
+
+/*
+* Global middleware to make logged in user available to views
+*/
+app.use((req, res, next) => {
+  res.locals.user = req.isAuthenticated() ? req.user : null
+  return next();
+})
+
+/*
+* App level locals
+*/
 views_data = {message: {}, errors: {}, formData: {}}
 for (key in views_data) app.locals[key] = views_data[key]
 
