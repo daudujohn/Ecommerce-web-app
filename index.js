@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 /*
 * App level locals
 */
-views_data = {message: {}, errors: {}, formData: {}}
+views_data = {message: {}, errors: {}, formData: {}, title: 'X Store'}
 for (key in views_data) app.locals[key] = views_data[key]
 
 app.use('/', home)
