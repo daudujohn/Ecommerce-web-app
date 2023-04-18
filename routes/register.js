@@ -8,7 +8,7 @@ const flash = require('../middlewares/flash');
 
 
 router.get('/', [guest, flash], (req, res) => {
-    res.render('auth/register')
+    res.render('auth/register', {title: 'Register'})
 })
 
 router.post('/', [guest, flash], async (req, res) => {
