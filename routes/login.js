@@ -5,7 +5,7 @@ const guest = require('../middlewares/guest');
 const flash = require('../middlewares/flash');
 
 router.get('/', [guest, flash], (req, res) => {
-    res.render('auth/login', {title: 'Login'})
+    res.render('auth/login')
 })
 
 router.post('/', [guest, flash], (req, res, next) => {
