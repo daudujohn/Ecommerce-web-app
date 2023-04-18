@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../middlewares/auth');
 
 router.get('/', (req, res) => {
-  if (req.isAuthenticated()) return res.render('dashboard', { name: req.user.name })
+  if (req.isAuthenticated()) return res.render('homepage', { name: req.user.name })
   return res.render('index', {name: null})
 })
 
