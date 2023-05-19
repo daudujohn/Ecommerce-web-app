@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo');
 const home = require('./routes/home');
 const register = require('./routes/register');
 const login = require('./routes/login');
+const category = require('./routes/category');
 
 const app = express() 
 
@@ -47,6 +48,7 @@ for (key in views_data) app.locals[key] = views_data[key]
 app.use('/', home)
 app.use('/register', register)
 app.use('/login', login)
+app.use('/category', category)
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
