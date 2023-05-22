@@ -5,13 +5,24 @@ let app = new Vue({
         category: {
             name: '', 
             description: '', 
-            seoDescription: ''
+            seoDescription: '' ,
+            properties: [
+                {
+                    name: 'Storage'
+                }, 
+                {
+                    name: 'RAM'
+                }
+            ]
         }
     }, 
 
     methods: {
         saveCategory: function (){
             console.log(this.category)
+        }, 
+        addProperty: function(){
+            this.category.properties.push({})
         }
     }
 })
