@@ -47,17 +47,17 @@ block content
           title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
           v-model="category.seoDescription"
         )
-      hr
-      .row
+      
+      .row.mt-4
         .col-6
           h2 Properties
         .col-6
           button.btn.btn-primary.float-right(@click='addProperty' type='button') Add Property
 
-      .row.d-flex.align-items-center.justify-content-center(v-for='(property, index) in category.properties' :key='index')
-        .col-md-5: .form-group
+      .row.d-flex.align-items-center.justify-content-around(v-for='(property, index) in category.properties' :key='index')
+        .col-md-4: .form-group 
           label(:for="`property_name_${index + 1}`")
-            | Property {{ index + 1 }}
+            | Name
             sup.text-danger *
           input.form-control(
             :id="`property_name_${index + 1}`"
@@ -65,48 +65,77 @@ block content
             v-model="property.name"
           )
 
-        .col-md-3: .form-group
+        .col-md-4: .form-group
           label(:for="`property_type_${index + 1}`")
-            | Property Type {{ index + 1 }}
+            | Type
             sup.text-danger *
           select.form-control.custom-select(
             :id="`property_type_${index + 1}`"
             v-model="property.input.type"
           )
-            option(v-for='(typeOption, i) in inputTypeOptions' :value="typeOption.value" :key='i') {{ typeOption.label }}
-
-        .col-md-2: .form-check
-          input.form-check-input(
-            :id="`property_required_${index + 1}`" 
-            v-model='property.required' 
-            type='checkbox' 
-            checked
-          )
-          label.form-check-label(:for="`property_required_${index + 1}`").Checked Required
+            option(
+              v-for='(typeOption, i) in inputTypeOptions' 
+              :value="typeOption.value" 
+              :key='i'
+            ) {{ typeOption.label }}
           
-        .col-md-2.d-flex.justify-content-center.align-items-baseline
-            button.btn.btn-danger(@click='removeProperty(index)' type='button') Delete
+        .col-md-2
+          button.btn.btn-danger(@click='removeProperty(index)' type='button')
+            i.fa.fa-trash.fa-fw
+            span.d-xl-none Delete
+        
+        .col-md-2
+          .col-md-6: .form-check
+            input.form-check-input(
+              :id="`property_required_${index + 1}`" 
+              v-model='property.required' 
+              type='checkbox' 
+              checked
+            )
+            label.form-check-label(:for="`property_required_${index + 1}`").Checked Required
+          
+          .col-md-6: .form-check
+            input.form-check-input(
+              :id="`property_required_${index + 1}`" 
+              v-model='property.required' 
+              type='checkbox' 
+              checked
+            )
+            label.form-check-label(:for="`property_required_${index + 1}`").Checked Filterable
+          
+        .col-md-12
+          hr
+      
 
-        .row.card.d-flex(v-for='choice in property.input.propertyChoices')
-          .col-md-5
-            label(for='name')
-            | Name
-            sup.text-danger *
-            input.form-control#name(
+        .row.card(v-if="property.input.type === 'selectOne'" v-for='(choice, choice_id) in property.input.propertyChoices' :key='`${index}_${choice_id}`')
+          .col-md-4
+            label(:for="`choice_label_${index + 1}_${choice_id + 1}`")
+              | Label
+              sup.text-danger *
+            input.form-control(
+              :id="`choice_label_${index + 1}_${choice_id + 1}`"
               type='text'
               v-model="choice.label"
             )
-          .col-md-5
-            label(for='name')
-            | Name
-            sup.text-danger *
-            input.form-control#name(
+          .col-md-4
+            label(:for="`choice_value_${index + 1}_${choice_id + 1}`")
+              | Value
+              sup.text-danger *
+            input.form-control(
+              :id="`choice_value_${index + 1}_${choice_id + 1}`"
               type='text'
               v-model="choice.value"
             )
-          .col-md-2 
-            button.btn.btn-primary(@click='addNewChoice') Add Choice
+          .col-md-2
+            button.btn.btn-primary(@click='addNewChoice(property.input.propertyChoices)' type='button') +
+          .col-md-2
+            button.btn.btn-danger(@click='removeChoice(property.input.propertyChoices, index)' type='button')
+              i.fa.fa-trash.fa-fw
+              span.d-xl-none Delete
           
+
+
+
       //- .row.mb-4(v-for="(property, index) in category.propertes" :key="index")
         //- .col-md-6: .form-group
         //-   label(:for="'property_name_' + index")
