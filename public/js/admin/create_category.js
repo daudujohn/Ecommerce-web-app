@@ -32,8 +32,11 @@ let app = new Vue({
   },
 
   methods: {
-    saveCategory: function () {
-      console.log(this.category);
+    saveCategory: async function () {
+      console.log(JSON.stringify(this.category));
+      const result = await axios.post('/api/v1/category', this.category)
+      console.log('result :>> ', result);
+
     },
     addProperty: function () {
       this.category.properties.push({
