@@ -17,6 +17,29 @@ const trimObject = (obj) => {
     }
 }
 
+const sanitizeObject = (obj) => {
+    for (const key in obj){
+        if (isString(obj[key])){
+            if (key.indexOf('password') !== -1){
+                continue
+            }
+            obj[key] = obj[key].trim()
+            if (obj[key] === 'email') {
+                obj[key] = obj[key].toLowerCase()                
+            }
+        }
+        else if(Array.isArray(obj[key])){
+            for (let i = 0; i < obj[key].length; i++){
+                sanitizeObject(obj[key][i])
+            }
+        }
+        else if (isObject(obj[key])) {
+            sanitizeObject(obj[key])
+        }
+    }
+}
+
 module.exports  = {
-    trimObject
+    trimObject, 
+    sanitizeObject, 
 }
